@@ -6,28 +6,24 @@ class Solution():
         输出: 2
         
         思路：
-            1、首先计算数组长度
-            2、然后对
+            1、哈希表法
+            2、数组排序法
+            3、摩尔投票法
+                正负相抵消的思想，
+                假设第一个n1为众数，遍历统计票数，当发生正负抵消的时候，剩余的数组的众数也不变
+                    当n1 = x 抵消中的数字有一半时众数
+                    当n1 ！= x 抵消中的数组，少于或者等于一半时众数
+                利用这个特性，每轮都可以假设缩小当前的区间，当遍历完成时，最后一轮假设的数字就为众数。
+        算法流程：
+            初始化：x  votes 票数统计 
 
         '''
-        dic = {} # key-> 数字  value -> 出现的次数
-        n = len(nums)//2    # 数组长度的一半
-        s  = set()  # 数组生成无序集合
+        votes= 0
         for i in nums:
-            if i not in s:
-                s.add(i)
-            else:
-                pass
-        for i in s:
-            dic[i] =0
-        for i in nums:
-            if i in dic:
-                dic[i] += 1
-            else:
-                pass
-        for k,v in dic.items():
-            if v>n:
-                return k
+            if votes == 0 : x = i
+            votes +=1 if i==x else -1
+        return x
+
             
 
 if __name__ == "__main__":
